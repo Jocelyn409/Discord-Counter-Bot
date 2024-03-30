@@ -27,15 +27,16 @@ client.once(Events.ClientReady, readyClient => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) return;
-    const command = interaction.client.commands.get(interaction.commandName);
+client.login(token); // Log in to Discord with your client's token
 
+client.on(Events.InteractionCreate, async interaction => {
+    console.log("finally")
+    if (!interaction.isChatInputCommand()) return;
+    const command = client.commands.get(interaction.commandName);
     if (!command) {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
     }
-
     try {
         await command.execute(interaction);
     } catch (error) {
@@ -47,5 +48,3 @@ client.on(Events.InteractionCreate, async interaction => {
         }
     }
 });
-
-client.login(token); // Log in to Discord with your client's token
