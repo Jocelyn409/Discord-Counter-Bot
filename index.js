@@ -1,10 +1,16 @@
-const fs = require('node:fs');
+const fs= require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+
+
+// MAKE IT SO YOU CAN NAME WHAT THE COUNTER IS CALLED
+
+
 
 client.commands = new Collection();
 
@@ -30,7 +36,6 @@ client.once(Events.ClientReady, readyClient => {
 client.login(token); // Log in to Discord with your client's token
 
 client.on(Events.InteractionCreate, async interaction => {
-    console.log("finally")
     if (!interaction.isChatInputCommand()) return;
     const command = client.commands.get(interaction.commandName);
     if (!command) {
