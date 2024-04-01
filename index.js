@@ -5,13 +5,6 @@ const { token } = require('./config.json');
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-
-
-// MAKE IT SO YOU CAN NAME WHAT THE COUNTER IS CALLED
-
-
-
 client.commands = new Collection();
 
 const foldersPath = path.join(__dirname, 'commands');

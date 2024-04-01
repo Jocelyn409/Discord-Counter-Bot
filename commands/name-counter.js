@@ -1,12 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { readFileSync } = require("fs");
-const { writeFileSync } = require("fs");
-const path = "./counter.json";
-
-const jsonString = readFileSync(path);
-console.log(JSON.parse(jsonString.toString()));
+const fileSync = require("fs");
 
 module.exports = {
+
     data: new SlashCommandBuilder()
         .setName('name-counter')
         .setDescription('Names the counter')
@@ -15,10 +11,17 @@ module.exports = {
                 .setName('input')
                 .setDescription('Name')
                 .setRequired(true)),
+
     async execute(interaction) {
-        let name = interaction.options.getString('input');
-        const new_name = {"counterName": name};
-        writeFileSync(path, JSON.stringify(new_name, null, 2), "utf8");
-        await interaction.reply(`Counter name is now ${name}`);
+        let jsonData = JSON.parse(fileSync.readFileSync("./counter.json", 'utf-8'));
+        let new_name = interaction.options.getString('input');
+
+        jsonData.counterName = new_name;
+        fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData));
+        console.log("Counter name is now: " + new_name);
+
+        // Relay information
+        await interaction.reply(`Counter name is now the ${new_name} Counter`);
     },
+
 };
