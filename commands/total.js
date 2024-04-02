@@ -12,7 +12,7 @@ module.exports = {
 
         if(jsonData.counterName !== null) {
             await interaction.reply(`Counter total: ${jsonData.runningTotal}`);
-            if(jsonData.userScores !== null) {
+            if(JSON.stringify(jsonData.userScores).length !== undefined) {
                 await interaction.followUp(`User totals: ${JSON.stringify(jsonData.userScores, null, 4)}`);
             }
             else {

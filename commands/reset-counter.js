@@ -12,7 +12,7 @@ module.exports = {
 
         if(jsonData.counterName !== null) {
             jsonData.runningTotal = 0;
-            jsonData.userScores = "";
+            jsonData.userScores = {};
             fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData, null, 4));
             console.log("Reset counter total");
 
