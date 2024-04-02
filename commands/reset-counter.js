@@ -11,9 +11,9 @@ module.exports = {
         let jsonData = JSON.parse(fileSync.readFileSync("./counter.json", 'utf-8'));
 
         if(jsonData.counterName !== null) {
-
             jsonData.runningTotal = 0;
-            fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData));
+            jsonData.userScores = "";
+            fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData, null, 4));
             console.log("Reset counter total");
 
             await interaction.reply(`${jsonData.counterName} has been reset`);

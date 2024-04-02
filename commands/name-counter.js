@@ -17,7 +17,7 @@ module.exports = {
         let new_name = interaction.options.getString('input');
 
         jsonData.counterName = new_name;
-        fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData));
+        fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData, null, 4));
         console.log("Counter name is now: " + new_name);
 
         // Relay information

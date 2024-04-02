@@ -19,12 +19,17 @@ module.exports = {
             const user = interaction.options.getUser('user') || interaction.user;
             const member = await interaction.guild.members.fetch(user.id);
 
-            jsonData.userScores.member = 1;
-            fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData));
+            if(jsonData["userScores"][user.tag] !== undefined) {
+                jsonData["userScores"][user.tag] += 1;
+            }
+            else {
+                jsonData["userScores"][user.tag] = 1;
+            }
+            fileSync.writeFileSync("./counter.json", JSON.stringify(jsonData, null, 4));
 
             // Relay information
-            await interaction.reply(`${member} has added to the ${jsonData.counterName} Counter`);
-            await interaction.followUp(`The total is now ${jsonData.runningTotal}!`);
+            await interaction.reply(`${member} has added to the ${jsonData.counterName} Counter\nThe total is now ${jsonData.runningTotal}!`);
+            await interaction.followUp({content: `Your individual total is now ${jsonData["userScores"][user.tag]}`, ephemeral: true})
         }
         else {
             await interaction.reply("You need to name the counter before incrementing it");
